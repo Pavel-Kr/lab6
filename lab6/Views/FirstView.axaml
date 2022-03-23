@@ -1,0 +1,40 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="450"
+		     Width="450" Height="450"
+             x:Class="lab6.Views.FirstView">
+	<Grid RowDefinitions="30,*,45">
+		<DatePicker SelectedDate="{Binding Date, Mode=TwoWay}" Grid.Row="0" HorizontalAlignment="Stretch"/>
+		<ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+			<ItemsControl Items="{Binding VisibleNotes}">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<Grid ColumnDefinitions="*,40,40">
+							<Border Grid.Column="0" BorderThickness="1"
+									BorderBrush="Black">
+								<TextBlock Text="{Binding Title}" Margin="10,5,0,0"
+									   FontSize="16"/>
+							</Border>
+							<Button Grid.Column="1"
+									Command="{Binding $parent[Window].DataContext.EditNote}"
+									CommandParameter="{Binding Title}">
+								<Image Source="/Assets/in_zoom.ico"/>
+							</Button>
+							<Button Grid.Column="2" Command="{Binding $parent[Window].DataContext.Delete}" 
+									CommandParameter="{Binding Title}">
+								<Image Source="/Assets/trash.ico"/>
+							</Button>
+						</Grid>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+		</ScrollViewer>
+		<Button Grid.Row="2" HorizontalAlignment="Stretch"
+				HorizontalContentAlignment="Center" 
+				Command="{Binding $parent[Window].DataContext.AddNote}">
+			<Image Source="/Assets/add.ico"/>
+		</Button>
+	</Grid>
+</UserControl>
